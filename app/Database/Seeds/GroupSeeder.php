@@ -17,21 +17,22 @@ class GroupSeeder extends Seeder
             'name' => 'administrator',
             'description' => 'administrator kelola utama website'
         ]);
+        foreach ($permissions->findAll() as $key) {
+            $group->addPermissionToGroup($key->id, $group->getInsertId());
+        }
 
         $group->insert([
             'name' => 'dosen',
             'description' => 'hanya bisa diakses oleh dosen'
         ]);
-
+        $dosen = $permissions->where(['name' => 'read-module', 'name' => 'create-module'])->findAll();
+        foreach ($dosen as $dosenPermis) {
+            $group->addPermissionToGroup($dosenPermis->id, $group->getInsertId());
+        }
         $group->insert([
             'name' => 'mahasiswa',
             'description' => 'hanya bisa diakses oleh mahasiswa'
         ]);
-
-
-        foreach ($permissions->findAll() as $key) {
-            $group->addPermissionToGroup($key->id, $group->getInsertId());
-        }
 
         $dosen = $permissions->where(['name' => 'read-module'])->findAll();
         foreach ($dosen as $dosenPermis) {

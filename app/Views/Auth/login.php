@@ -64,11 +64,6 @@
 					<?php endif; ?>
 				</div>
 			</div>
-			<?php
-			echo '<pre>';
-			print_r(session()->get());
-			echo '</pre>';
-			?>
 		</div>
 	</div>
 </div>

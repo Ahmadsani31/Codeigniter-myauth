@@ -15,7 +15,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string
      */
-    public $defaultUserGroup = 'dosen';
+    public $defaultUserGroup = 'administrator';
 
     /**
      * --------------------------------------------------------------------
@@ -73,8 +73,8 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var array
      */
     public $views = [
-        'login'           => 'App\Views\Auth\login',
-        'register'        => 'App\Views\Auth\register',
+        'login'           => 'App\Views\Auth\v_login',
+        'register'        => 'App\Views\Auth\v_register',
         'forgot'          => 'App\Views\Auth\forgot',
         'reset'           => 'App\Views\Auth\reset',
         'emailForgot'     => 'App\Views\Auth\emails\forgot',
