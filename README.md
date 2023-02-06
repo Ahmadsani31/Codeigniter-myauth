@@ -1,5 +1,19 @@
 # CodeIgniter 4 Application Starter
 
+git clone
+<blockquote>composer install</blockquote>
+ then  
+<blockquote>composer update</blockquote>
+
+migrate all database
+<blockquote>php spark migrate -all </blockquote>
+
+database seed
+<blockquote>php spark db:seed </blockquote>
+
+<blockquote>DatabaseSeeder</blockquote>
+
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
