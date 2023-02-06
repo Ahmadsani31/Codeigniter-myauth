@@ -177,7 +177,7 @@
                                     <td>' . implode(' ', $per[$val->id]) . '</td>
                                     <td>' . ($val->active == 1 ? 'Aktif' : 'Non Aktif') . '</td>
                                     <td>
-                                    <a href="" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i></a>
+                                    <a href="' . base_url('user/' . $val->id . '/edit') . '" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i></a>
                                     ' . $delete . '
                                     </td>
                                 </tr>';

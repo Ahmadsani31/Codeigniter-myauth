@@ -46,6 +46,8 @@ $routes->POST('register', 'AuthController::attemptRegister');
 $routes->POST('forgot', 'AuthController::attemptForgot');
 $routes->POST('reset-password', 'AuthController::attemptReset');
 
+$routes->add('user/(:num)/edit', 'User::edit/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
