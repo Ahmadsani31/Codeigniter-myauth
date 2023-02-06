@@ -134,47 +134,103 @@
                     </p>
                 </div>
             </div>
-            <?php
-            echo '<pre>';
-            print_r(session()->get());
-            echo '</pre>';
-            echo has_permission('delete-module');
-            echo in_groups('dosen');
-            ?>
-            <div class="card mt-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        $delete = '';
-                        foreach ($Users as $val) {
-                            if (has_permission('delete-module')) {
-                                $delete = '<a href="" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash"></i></a>';
-                            }
-                            echo '<tr>
+            <div class="card">
+                <div class="card-header">
+                    <h4>User</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Group</th>
+                                <th scope="col">Permission</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            $delete = '';
+                            foreach ($Users as $val) {
+                                $groups = $Group->getGroupsForUser($val->id);
+                                $permission = $Group->getPermissionsForGroup($groups[0]['group_id']);
+                                foreach ($permission as $permis) {
+                                    $per[$val->id][] = '<span class="badge text-bg-info">' . $permis['name'] . '</span>';
+                                }
+                                // implode(',', $per);
+                                // echo '<pre>';
+                                // print_r($per[$val->id]);
+                                // echo '</pre>';
+                                // echo $groups->name;
+                                if (has_permission('delete-module')) {
+                                    $delete = '<a href="" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash"></i></a>';
+                                }
+                                echo '<tr>
                                     <th scope="row">' . $no++ . '</th>
                                     <td>' . $val->email . '</td>
                                     <td>' . $val->username . '</td>
+                                    <td><span class="badge text-bg-primary">' . $groups[0]['name'] . '</span></td>
+                                    <td>' . implode(' ', $per[$val->id]) . '</td>
                                     <td>' . ($val->active == 1 ? 'Aktif' : 'Non Aktif') . '</td>
                                     <td>
                                     <a href="" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i></a>
                                     ' . $delete . '
                                     </td>
                                 </tr>';
-                        }
-                        ?>
+                            }
+                            ?>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4>Group</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Permission</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            $delete = '';
+                            foreach ($Group->findAll() as $gs) {
+                                $permission = $Group->getPermissionsForGroup($gs->id);
+                                foreach ($permission as $permiss) {
+                                    $perm[$gs->id][] = '<span class="badge text-bg-info">' . $permiss['name'] . '</span>';
+                                }
+                                // echo '<pre>';
+                                // print_r($perm[$gs->id]);
+                                // echo '</pre>';
+                                echo '<tr>
+                                    <th scope="row">' . $no++ . '</th>
+                                    <td>' . $gs->name . '</td>
+                                    <td>' . $gs->description . '</td>
+                                    <td>' . implode(' ', $perm[$gs->id]) . '</td>
+                                    <td>
+                                    <a href="" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i></a>
+                                    <a href="" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>';
+                            }
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
