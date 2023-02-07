@@ -214,7 +214,7 @@ class AuthController extends Controller
     /**
      * Displays the forgot password form.
      */
-    public function forgotPassword()
+    public function forgotPassword1()
     {
         if ($this->config->activeResetter === null) {
             return redirect()->route('login')->with('error', lang('Auth.forgotDisabled'));

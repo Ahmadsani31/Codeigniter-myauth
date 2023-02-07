@@ -58,7 +58,7 @@
                                         <div class="mb-3">
                                             <div class="form-group">
                                                 <label for="password"><?= lang('Auth.password') ?></label>
-                                                <input type="password" name="password" class="form-control  <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
+                                                <input type="password" name="password" class="form-control form-control-lg <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
                                                 <div class="invalid-feedback">
                                                     <?= session('errors.password') ?>
                                                 </div>

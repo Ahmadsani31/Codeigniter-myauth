@@ -41,7 +41,7 @@ $routes->get('logout', 'AuthController::logout');
 $routes->get('register', 'AuthController::register', ['as' => 'register']);
 $routes->get('activate-account', 'AuthController::activateAccount', ['as' => 'activate-account']);
 $routes->get('resend-activate-account', 'AuthController::resendActivateAccount', ['as' => 'resend-activate-account']);
-$routes->get('forgot', 'AuthController::forgotPassword ', ['as' => 'forgot']);
+// $routes->get('forgot', 'AuthController::forgotPassword', ['as' => 'forgot']);
 $routes->get('reset-password', 'AuthController::resetPassword', ['as' => 'reset-password']);
 
 $routes->POST('login', 'AuthController::attemptLogin');
