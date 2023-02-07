@@ -11,6 +11,6 @@ class Dashboard extends BaseController
         $arrD = [
             'Title' => 'Dashboard'
         ];
-        return view('v_dashboard', $arrD);
+        return view('administrator/v_dashboard', $arrD);
     }
 }

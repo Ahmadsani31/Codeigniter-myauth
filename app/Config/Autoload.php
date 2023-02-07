@@ -44,6 +44,8 @@ class Autoload extends AutoloadConfig
         'Config'      => APPPATH . 'Config',
         'App'         => APPPATH,
         'Myth\Auth'   => APPPATH . 'ThirdParty/myth-auth/src',
+        'PHPSQLParser'          => APPPATH . 'ThirdParty/php-sql-parser/src/PHPSQLParser', // <-- namespace for php-sql-parser
+        'Hermawan\DataTables'   => APPPATH . 'ThirdParty/codeigniter4-datatables/src', // <-- namespace for this library
     ];
 
     /**

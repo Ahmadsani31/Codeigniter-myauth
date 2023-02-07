@@ -32,6 +32,8 @@ $routes->set404Override();
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Home::index', ['filter' => 'login']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'login']);
+$routes->get('user', 'User::index', ['filter' => 'login']);
+$routes->post('datatable', 'Administrator\Datatables::serverSide', ['filter' => 'login']);
 
 
 $routes->get('login', 'AuthController::login', ['as' => 'login']);

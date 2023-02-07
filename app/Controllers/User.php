@@ -15,7 +15,10 @@ class User extends BaseController
     }
     public function index()
     {
-        return view('v_user');
+        $arrD = [
+            'Title' => 'User'
+        ];
+        return view('administrator/v_user', $arrD);
     }
 
     public function edit(int $id)
