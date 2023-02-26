@@ -33,7 +33,19 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             // 'honeypot',
-            // 'csrf',
+            'csrf' => [
+                'except' => [
+                    'datatable',
+                    'datatable/server-side',
+                    'admin-delete',
+                    'admin-modal/*',
+                    'administrator/delete',
+                    'admin/user',
+                    'admin/group',
+                    'admin/permission',
+                    'user/(:num)/edit'
+                ]
+            ]
             // 'invalidchars',
         ],
         'after' => [

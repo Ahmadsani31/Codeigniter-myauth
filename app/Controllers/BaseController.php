@@ -2,11 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\PermissionModel;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,7 +38,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['OptionHelpers', 'query'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -55,5 +58,9 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         helper('auth');
+
+        $this->MUser = new UserModel();
+        $this->group = new GroupModel();
+        $this->permissions = new PermissionModel();
     }
 }

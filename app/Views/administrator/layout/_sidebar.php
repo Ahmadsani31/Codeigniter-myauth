@@ -9,26 +9,27 @@
                 Pages
             </li>
 
-            <li class="sidebar-item active">
-                <a class="sidebar-link" href="<?= base_url('dashboard'); ?>">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= base_url('admin-dashboard'); ?>">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= base_url('user'); ?>">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
-                </a>
-            </li>
+
             <li class="sidebar-header">
                 Administrator
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-forms.html">
+                <a class="sidebar-link" href="<?= base_url('admin/user'); ?>">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= base_url('admin/group'); ?>">
                     <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Group</span>
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-forms.html">
+                <a class="sidebar-link" href="<?= base_url('admin/permission'); ?>">
                     <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Permission</span>
                 </a>
             </li>

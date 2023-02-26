@@ -13,13 +13,15 @@
 
                     <form action="<?= url_to('register') ?>" method="post">
                         <?= csrf_field() ?>
-
+                        <div class="form-group">
+                            <label for="nama"><?= lang('Auth.nama') ?></label>
+                            <input type="text" class="form-control <?php if (session('errors.nama')) : ?>is-invalid<?php endif ?>" name="nama" placeholder="<?= lang('Auth.nama') ?>" value="<?= old('nama') ?>">
+                        </div>
                         <div class="form-group">
                             <label for="email"><?= lang('Auth.email') ?></label>
                             <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" aria-describedby="emailHelp" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>">
                             <small id="emailHelp" class="form-text text-muted"><?= lang('Auth.weNeverShare') ?></small>
                         </div>
-
                         <div class="form-group">
                             <label for="username"><?= lang('Auth.username') ?></label>
                             <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">

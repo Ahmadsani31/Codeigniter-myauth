@@ -31,9 +31,30 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Home::index', ['filter' => 'login']);
-$routes->get('dashboard', 'Dashboard::index', ['filter' => 'login']);
-$routes->get('user', 'User::index', ['filter' => 'login']);
-$routes->post('datatable', 'Administrator\Datatables::serverSide', ['filter' => 'login']);
+
+// $routes->post('datatable', 'Administrator\Datatables::serverSide', ['filter' => 'login']);
+// $routes->post('datatable', 'Administrator\Datatables::index', ['filter' => 'login']);
+
+$routes->group('datatable', ['filter' => 'login'], function ($routes) {
+    $routes->POST('/',  'Administrator\Datatables::index');
+    $routes->POST('server-side', 'Administrator\Datatables::serverSide');
+});
+
+$routes->POST('admin-modal/(:any)', 'Administrator\Modal::index', ['filter' => 'login']);
+
+$routes->group('admin', ['filter' => 'login'], function ($routes) {
+    $routes->get('user', 'Administrator\User::index');
+    $routes->get('group', 'Administrator\User::group');
+    $routes->get('permission', 'Administrator\User::permission');
+
+    $routes->POST('user', 'Administrator\User::simpanDanUpdate',);
+    $routes->POST('group', 'Administrator\User::simpanDanUpdateGroup',);
+    $routes->POST('permission', 'Administrator\User::simpanDanUpdatePermission',);
+});
+
+$routes->get('admin-dashboard', 'Administrator\Dashboard::index', ['filter' => 'role:administrator,login']);
+
+$routes->POST('admin-delete', 'Administrator\Delete::index', ['filter' => 'login']);
 
 
 $routes->get('login', 'AuthController::login', ['as' => 'login']);
@@ -51,7 +72,7 @@ $routes->POST('register', 'AuthController::attemptRegister');
 $routes->POST('forgot', 'AuthController::attemptForgot');
 $routes->POST('reset-password', 'AuthController::attemptReset');
 
-$routes->add('user/(:num)/edit', 'User::edit/$1');
+$routes->add('user/(:num)/edit', 'Administrator\User::edit/$1');
 
 /*
  * --------------------------------------------------------------------
