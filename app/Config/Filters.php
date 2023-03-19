@@ -37,13 +37,22 @@ class Filters extends BaseConfig
                 'except' => [
                     'datatable',
                     'datatable/server-side',
-                    'admin-delete',
-                    'admin-modal/*',
-                    'administrator/delete',
+                    'modal/*',
+                    'delete',
                     'admin/user',
                     'admin/group',
                     'admin/permission',
-                    'user/(:num)/edit'
+                    'user/(:num)/edit',
+                    'dashboard/location',
+                    'acara/simpan',
+                    'acara/simpan_sub',
+                    'acara/setPrioritasUndangan',
+                    'acara/event-calender',
+                    'undangan/simpan',
+                    'undangan/setLabelUndangan',
+                    'undangan/import_excel',
+                    'profil/upload',
+                    'profil/simpan-biodata'
                 ]
             ]
             // 'invalidchars',

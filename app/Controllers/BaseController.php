@@ -2,6 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Libraries\FileBase64;
+use App\Models\MAcara;
+use App\Models\MAcaraSub;
+use App\Models\MBiodata;
+use App\Models\MUndangan;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -45,7 +50,7 @@ abstract class BaseController extends Controller
      * The creation of dynamic property is deprecated in PHP 8.2.
      */
     // protected $session;
-
+    protected $fileBase64;
     /**
      * Constructor.
      */
@@ -59,8 +64,14 @@ abstract class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         helper('auth');
 
+        $this->fileBase64 = new FileBase64(); // create library
+
         $this->MUser = new UserModel();
         $this->group = new GroupModel();
         $this->permissions = new PermissionModel();
+        $this->MAcara = new MAcara();
+        $this->MAcaraSub = new MAcaraSub();
+        $this->MUndangan = new MUndangan();
+        $this->MBiodata = new MBiodata();
     }
 }

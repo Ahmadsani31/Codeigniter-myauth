@@ -8,7 +8,9 @@
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
         "myth/auth": "^1.2",
-        "hermawan/codeigniter4-datatables": "^0.6.1"
+        "hermawan/codeigniter4-datatables": "^0.6.1",
+        "phpoffice/phpspreadsheet": "^1.28",
+        "tecnickcom/tcpdf": "^6.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

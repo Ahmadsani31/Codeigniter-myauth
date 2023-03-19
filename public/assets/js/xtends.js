@@ -13,8 +13,10 @@ $(document).ready(function () {
 
         var id = $(this).attr("id");
         var judul = $(this).attr("judul");
+if (id != 'undangan-nama') {
+    $("#class").addClass("modal-lg");
+}
 
-        $("#class").addClass("modal-lg");
         $('#myModals').modal('toggle');
 
         if (judul != null) {
@@ -25,7 +27,7 @@ $(document).ready(function () {
 
         base_url = $("#base_url").val();
 
-        page = base_url + "admin-modal/modal-" + id;
+        page = base_url + "modal/modal-" + id;
         $.post(page, serial, function (data) {
             $("#loading-ajax-modal").hide();
             $("#konten").html(data);
@@ -52,7 +54,7 @@ $(document).ready(function () {
           }).then((result) => {
             if (result.isConfirmed) {
             base_url = $("#base_url").val();
-            page = base_url + "/admin-delete";
+            page = base_url + "/delete";
             $.ajax({
                 url: page,
                 data: serial,

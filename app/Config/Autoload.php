@@ -65,7 +65,9 @@ class Autoload extends AutoloadConfig
      *
      * @var array<string, string>
      */
-    public $classmap = [];
+    public $classmap = [
+        'FileBase64' => APPPATH . 'Libraries/FileBase64.php' // Loading library class file
+    ];
 
     /**
      * -------------------------------------------------------------------

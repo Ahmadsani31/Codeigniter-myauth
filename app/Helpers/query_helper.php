@@ -27,37 +27,82 @@ function Option($Table, $Primary, $Selected, $Nama, $where = null)
     return $data;
 }
 
-function OptionMultiple($Table, $Primary, $Selected, $Nama, $where = null)
+function OptionDaerah($Table, $Primary, $Selected)
 {
 
     $data = "";
+    $obj = [];
     switch ($Table) {
-        case 'group':
-            $query = db_connect()->query("SELECT * from $Table where $where order by id ASC");
+        case 'provinsi':
+            $json = file_get_contents('https://ibnux.github.io/data-indonesia/provinsi.json', true);
+            $obj = json_decode($json);
             break;
+        case 'kabupaten':
+            if ($Primary != null) {
+                $json = file_get_contents('https://ibnux.github.io/data-indonesia/kabupaten/' . $Primary . '.json', true);
+                $obj = json_decode($json);
+                return $obj;
+            }
 
-        default:
-            $query = db_connect()->query("SELECT * from $Table");
+            break;
+        case 'kecamatan':
+            if ($Primary != null) {
+                $json = file_get_contents('https://ibnux.github.io/data-indonesia/kecamatan/' . $Primary . '.json', true);
+                $obj = json_decode($json);
+                return $obj;
+            }
             break;
     }
-    // $x = explode(",", $Selected);
 
-    foreach ($query->getResultArray() as $fetch) {
-
-        if (in_array($fetch[$Primary], $Selected)) {
+    foreach ($obj as $fetch) {
+        if ($Selected == $fetch->id) {
             $sel = "selected";
         } else {
             $sel = "";
         }
 
-        $data .= '<option value="' . $fetch[$Primary] . '" ' . $sel . '>' . $fetch[$Nama] . '</option>';
+        $data .= '<option value="' . $fetch->id . '" ' . $sel . '>' . $fetch->nama . '</option>';
     }
 
     return $data;
 }
 
-
-function textHalo()
+function createDir($path)
 {
-    echo 'hai';
+    if (!file_exists($path)) {
+        $old_mask = umask(0);
+        mkdir($path, 0777, true);
+        umask($old_mask);
+    }
+}
+
+function TanggalIndo($Date)
+{
+    if ($Date != '') {
+        $Tanggal = substr($Date, 0, 10);
+        $Jam     = substr($Date, 11, 8);
+
+        $bulan = array(
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $pecahkan = explode('-', $Tanggal);
+
+        if ($Jam != "") {
+            return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0] . ' Jam ' . $Jam;
+        } else {
+            return @$pecahkan[2] . ' ' . @$bulan[(int) @$pecahkan[1]] . ' ' . @$pecahkan[0];
+        }
+    }
 }

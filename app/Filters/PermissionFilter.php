@@ -18,7 +18,7 @@ class PermissionFilter extends BaseFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // If no user is logged in then send them to the login form.
-        if (! $this->authenticate->check()) {
+        if (!$this->authenticate->check()) {
             session()->set('redirect_url', current_url());
 
             return redirect($this->reservedRoutes['login']);
@@ -35,7 +35,7 @@ class PermissionFilter extends BaseFilter implements FilterInterface
             $result = ($result && $this->authorize->hasPermission($permission, $this->authenticate->id()));
         }
 
-        if (! $result) {
+        if (!$result) {
             if ($this->authenticate->silent()) {
                 $redirectURL = session('redirect_url') ?? route_to($this->landingRoute);
                 unset($_SESSION['redirect_url']);

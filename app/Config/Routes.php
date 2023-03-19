@@ -30,31 +30,78 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
-$routes->get('/', 'Home::index', ['filter' => 'login']);
+$routes->get('/', 'Dashboard::index', ['filter' => 'login']);
+// $routes->get('/profil', 'Profil::index', ['filter' => 'login']);
+// $routes->post('/profil/upload', 'Profil::upload', ['filter' => 'login']);
+$routes->group('profil', ['filter' => 'login'], function ($routes) {
+    $routes->get('/', 'Profil::index', ['filter' => 'permission:read-module']);
+    $routes->post('upload', 'Profil::upload', ['filter' => 'permission:read-module']);
+    $routes->post('simpan-password', 'Profil::upload', ['filter' => 'permission:read-module']);
+    $routes->post('simpan-biodata', 'Profil::simpanBiodata', ['filter' => 'permission:read-module']);
+    $routes->post('simpan-password', 'Profil::simpanPassword', ['filter' => 'permission:read-module']);
+    $routes->get('select2-daerah', 'Profil::select2Daerah');
+});
 
 // $routes->post('datatable', 'Administrator\Datatables::serverSide', ['filter' => 'login']);
 // $routes->post('datatable', 'Administrator\Datatables::index', ['filter' => 'login']);
 
 $routes->group('datatable', ['filter' => 'login'], function ($routes) {
-    $routes->POST('/',  'Administrator\Datatables::index');
-    $routes->POST('server-side', 'Administrator\Datatables::serverSide');
+    $routes->POST('/',  'Datatables::index');
+    $routes->POST('server-side', 'Datatables::serverSide');
 });
 
-$routes->POST('admin-modal/(:any)', 'Administrator\Modal::index', ['filter' => 'login']);
+$routes->POST('modal/(:any)', 'Modal::index', ['filter' => 'login']);
 
-$routes->group('admin', ['filter' => 'login'], function ($routes) {
-    $routes->get('user', 'Administrator\User::index');
-    $routes->get('group', 'Administrator\User::group');
-    $routes->get('permission', 'Administrator\User::permission');
+$routes->group('user', ['filter' => 'role:administrator'], function ($routes) {
+    $routes->get('/', 'User::index');
+    $routes->get('group', 'User::group');
+    $routes->get('permission', 'User::permission');
 
-    $routes->POST('user', 'Administrator\User::simpanDanUpdate',);
-    $routes->POST('group', 'Administrator\User::simpanDanUpdateGroup',);
-    $routes->POST('permission', 'Administrator\User::simpanDanUpdatePermission',);
+    $routes->POST('simpan', 'User::simpanDanUpdate',);
+    $routes->POST('group', 'User::simpanDanUpdateGroup',);
+    $routes->POST('permission', 'User::simpanDanUpdatePermission',);
 });
 
-$routes->get('admin-dashboard', 'Administrator\Dashboard::index', ['filter' => 'role:administrator,login']);
+$routes->group('acara', function ($routes) {
+    $routes->get('/', 'Acara::index');
+    $routes->get('tampil/(:any)', 'Acara::view/$1/$2');
+    $routes->post('simpan', 'Acara::simpan', ['as' => 'save.acara']);
+    $routes->post('simpan_sub', 'Acara::simpanSub', ['as' => 'save.acara_sub']);
+    $routes->post('setPrioritasUndangan', 'Acara::setPrioritasUndangan', ['as' => 'save.prioritas']);
+});
 
-$routes->POST('admin-delete', 'Administrator\Delete::index', ['filter' => 'login']);
+$routes->group('undangan', ['filter' => 'login'], function ($routes) {
+    $routes->get('/', 'Undangan::index');
+    $routes->post('simpan', 'Undangan::simpan', ['as' => 'save.undangan']);
+    $routes->post('import_excel', 'Undangan::import_excel', ['as' => 'import.undangan']);
+    $routes->post('simpan', 'Undangan::simpan', ['as' => 'save.undangan']);
+});
+
+$routes->group('dashboard', ['filter' => 'login'], function ($routes) {
+    $routes->get('/', 'Dashboard::index');
+    $routes->get('location', 'Dashboard::getLocation');
+});
+
+$routes->group('acara', function ($routes) {
+    $routes->get('/', 'Acara::index');
+    $routes->get('tampil/(:any)', 'Acara::view/$1/$2');
+    $routes->post('simpan', 'Acara::simpan', ['as' => 'save.acara']);
+    $routes->get('cetak-undangan', 'Acara::cetakNamaUndangan');
+    $routes->post('simpan_sub', 'Acara::simpanSub', ['as' => 'save.acara_sub']);
+    $routes->post('setPrioritasUndangan', 'Acara::setPrioritasUndangan', ['as' => 'save.prioritas']);
+
+    $routes->get('event-calender', 'Acara::getEventFullcalender');
+});
+
+$routes->group('undangan', ['filter' => 'login'], function ($routes) {
+    $routes->get('/', 'Undangan::index');
+    $routes->get('cetak/(:num)', 'Undangan::cetakTCPDF/$1');
+    $routes->post('simpan', 'Undangan::simpan', ['as' => 'save.undangan']);
+    $routes->post('setLabelUndangan', 'Undangan::setLabelUndangan', ['as' => 'save.namaUndangan']);
+    $routes->post('import_excel', 'Undangan::import_excel', ['as' => 'import.undangan']);
+    $routes->post('simpan', 'Undangan::simpan', ['as' => 'save.undangan']);
+});
+$routes->POST('delete', 'Delete::index', ['filter' => 'login']);
 
 
 $routes->get('login', 'AuthController::login', ['as' => 'login']);
